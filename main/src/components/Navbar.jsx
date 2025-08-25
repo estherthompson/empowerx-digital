@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import logo from '../assets/logo.png';
-import '../assets/fonts/DMSerifText-Regular.ttf';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -10,29 +9,27 @@ const Navbar = () => {
         if (element) {
             element.scrollIntoView({ behavior: 'smooth' });
         }
-        setIsOpen(false); // Close mobile menu after clicking
+        setIsOpen(false);
     };
 
     return (
         <>
-            <div className="bg-white rounded-full mx-6 mt-6 fixed top-0 left-0 right-0 z-50">
-                <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="fixed top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-md border-b border-white/10">
+                <nav className="max-w-6xl mx-auto px-6">
                     <div className="flex justify-between items-center h-16">
-                        {/* Logo with black background and rounded frame */}
+                        {/* Logo */}
                         <div className="flex items-center space-x-3">
-                            <div className="bg-black p-1 rounded-full border-blue-900 border-3">
-                                <img src={logo} alt="Logo" className="h-10 w-auto" />
-                            </div>
-                            <h1 className="text-black text-xl font-bold">EMPOWERX DIGITAL</h1>
+                            <img src={logo} alt="Logo" className="h-16 w-auto" />
+                            <span className="text-white text-lg font-medium">EmpowerX Digital</span>
                         </div>
 
                         {/* Desktop Navigation */}
                         <div className="hidden md:block">
-                            <ul className="flex space-x-2">
+                            <ul className="flex space-x-8">
                                 <li>
                                     <button 
                                         onClick={() => scrollToSection('home')} 
-                                        className="bg-black text-white hover:bg-amber-500 hover:text-black px-4 py-2 rounded-full transition-all duration-300 font-bold transform hover:scale-105 hover:shadow-lg"
+                                        className="text-white/80 hover:text-[#FF7A00] transition-colors duration-300 text-sm font-medium"
                                     >
                                         Home
                                     </button>
@@ -40,7 +37,7 @@ const Navbar = () => {
                                 <li>
                                     <button 
                                         onClick={() => scrollToSection('about')} 
-                                        className="bg-black text-white hover:bg-amber-500 hover:text-black px-4 py-2 rounded-full transition-all duration-300 font-bold transform hover:scale-105 hover:shadow-lg"
+                                        className="text-white/80 hover:text-[#2ECC71] transition-colors duration-300 text-sm font-medium"
                                     >
                                         About
                                     </button>
@@ -48,7 +45,7 @@ const Navbar = () => {
                                 <li>
                                     <button 
                                         onClick={() => scrollToSection('programs')} 
-                                        className="bg-black text-white hover:bg-amber-500 hover:text-black px-4 py-2 rounded-full transition-all duration-300 font-bold transform hover:scale-105 hover:shadow-lg"
+                                        className="text-white/80 hover:text-[#00BFA5] transition-colors duration-300 text-sm font-medium"
                                     >
                                         Programs
                                     </button>
@@ -56,19 +53,19 @@ const Navbar = () => {
                                 <li>
                                     <button 
                                         onClick={() => scrollToSection('contact')} 
-                                        className="bg-black text-white hover:bg-amber-500 hover:text-black px-4 py-2 rounded-full transition-all duration-300 font-bold transform hover:scale-105 hover:shadow-lg"
+                                        className="text-white/80 hover:text-[#0056D2] transition-colors duration-300 text-sm font-medium"
                                     >
                                         Contact
                                     </button>
                                 </li>
-            </ul>
+                            </ul>
                         </div>
 
                         {/* Mobile Menu Button */}
                         <div className="md:hidden">
                             <button 
                                 onClick={() => setIsOpen(!isOpen)}
-                                className="bg-black text-white hover:bg-amber-500 hover:text-black p-2 rounded-full transition-all duration-300 transform hover:scale-105"
+                                className="text-white/80 hover:text-white transition-colors duration-300"
                             >
                                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     {isOpen ? (
@@ -80,70 +77,58 @@ const Navbar = () => {
                             </button>
                         </div>
                     </div>
-        </nav>
-    </div>
+                </nav>
+            </div>
 
-            {/* Full Screen Mobile Menu Overlay */}
+            {/* Mobile Menu */}
             {isOpen && (
                 <div className="fixed inset-0 z-50 md:hidden">
-                    {/* Blurred Background */}
-                    <div className="absolute inset-0 bg-black/80 backdrop-blur-md"></div>
+                    <div className="absolute inset-0 bg-black/90 backdrop-blur-md"></div>
                     
-                    {/* Close Button */}
-                    <button 
-                        onClick={() => setIsOpen(false)}
-                        className="absolute top-6 right-6 text-white hover:text-amber-300 transition-colors duration-300 z-10"
-                    >
-                        <span className="text-4xl font-bold">×</span>
-                    </button>
-                    
-                    {/* Menu Content */}
-                    <div className="relative h-full flex flex-col">
-                        {/* Header */}
-                        <div className="flex justify-between items-center p-6">
-                            <h2 className="text-white text-2xl font-bold">EMPOWERX DIGITAL</h2>
-                        </div>
+                    <div className="relative h-full flex flex-col justify-center items-center">
+                        <button 
+                            onClick={() => setIsOpen(false)}
+                            className="absolute top-6 right-6 text-white/80 hover:text-white transition-colors duration-300"
+                        >
+                            <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
                         
-                        {/* Navigation Links */}
-                        <div className="flex-1 flex items-center justify-center">
-                            <ul className="space-y-8 text-center">
-                                <li>
-                                    <button 
-                                        onClick={() => scrollToSection('home')} 
-                                        className="text-white text-6xl hover:text-amber-300 transition-colors duration-300 tracking-wide"
-                                    >
-                                        Home
-                                    </button>
-                                </li>
-                                <li>
-                                    <button 
-                                        onClick={() => scrollToSection('about')} 
-                                        className="text-white text-6xl hover:text-amber-300 transition-colors duration-300 tracking-wide"
-                                        style={{ fontFamily: 'Radley-Regular, serif' }}
-                                    >
-                                        About
-                                    </button>
-                                </li>
-                                <li>
-                                    <button 
-                                        onClick={() => scrollToSection('programs')} 
-                                        className="text-white text-6xl hover:text-amber-300 transition-colors duration-300 tracking-wide"
-                                        style={{ fontFamily: 'Radley-Regular, serif' }}
-                                    >
-                                        Programs
-                                    </button>
-                                </li>
-                                <li>
-                                    <button 
-                                        onClick={() => scrollToSection('contact')} 
-                                        className="text-white text-6xl hover:text-amber-300 transition-colors duration-300 tracking-wide"
-                                        style={{ fontFamily: 'Radley-Regular, serif' }}
-                                    >
-                                        Contact
-                                    </button>
-                                </li>
-                            </ul>
-                        </div>
+                        <ul className="space-y-8 text-center">
+                            <li>
+                                <button 
+                                    onClick={() => scrollToSection('home')} 
+                                    className="text-white/80 hover:text-[#FF7A00] transition-colors duration-300 text-2xl font-medium"
+                                >
+                                    Home
+                                </button>
+                            </li>
+                            <li>
+                                <button 
+                                    onClick={() => scrollToSection('about')} 
+                                    className="text-white/80 hover:text-[#2ECC71] transition-colors duration-300 text-2xl font-medium"
+                                >
+                                    About
+                                </button>
+                            </li>
+                            <li>
+                                <button 
+                                    onClick={() => scrollToSection('programs')} 
+                                    className="text-white/80 hover:text-[#00BFA5] transition-colors duration-300 text-2xl font-medium"
+                                >
+                                    Programs
+                                </button>
+                            </li>
+                            <li>
+                                <button 
+                                    onClick={() => scrollToSection('contact')} 
+                                    className="text-white/80 hover:text-[#0056D2] transition-colors duration-300 text-2xl font-medium"
+                                >
+                                    Contact
+                                </button>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             )}
