@@ -2,3 +2,18 @@
 
 /* EmpowerX Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap');
+
+/* Radley Font */
+@font-face {
+  font-family: 'Radley-Regular';
+  src: url('./assets/fonts/Radley-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Radley-Italic';
+  src: url('./assets/fonts/Radley-Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
