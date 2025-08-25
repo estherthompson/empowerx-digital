@@ -22,6 +22,30 @@ const Home = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Scroll animations
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-in');
+        }
+      });
+    }, observerOptions);
+
+    // Observe all elements with scroll-animate class
+    const elements = document.querySelectorAll('.scroll-animate');
+    elements.forEach(el => observer.observe(el));
+
+    return () => {
+      elements.forEach(el => observer.unobserve(el));
+    };
+  }, []);
+
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
@@ -175,12 +199,12 @@ const Home = () => {
       />
 
       {/* Home Section */}
-      <section id="home" className="relative z-10 flex items-center justify-center min-h-[80vh]">
-        <div className="text-center text-white">
-          <h1 className="text-6xl font-bold mb-6 drop-shadow-lg">
+      <section id="home" className="relative z-10 flex items-center justify-center min-h-[80vh] pt-20">
+        <div className="text-center text-white px-4">
+          <h1 className="text-4xl md:text-6xl font-bold mb-4 md:mb-6 drop-shadow-lg scroll-animate scale-up">
             Empower<span className='text-[#fe9900]'>X</span> <span className="font-light italic">Digital</span>
           </h1>
-          <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
+          <p className="text-lg md:text-xl mb-6 md:mb-8 max-w-2xl mx-auto opacity-90 scroll-animate stagger-1">
             Empowering Tomorrow's Digital Leaders
           </p>
           <button 
@@ -190,13 +214,13 @@ const Home = () => {
                 element.scrollIntoView({ behavior: 'smooth' });
               }
             }}
-            className="bg-amber-500 hover:bg-amber-600 text-black font-bold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105"
+            className="bg-amber-500 hover:bg-amber-600 text-black font-bold py-3 px-6 md:px-8 rounded-full transition duration-300 transform hover:scale-105 scroll-animate stagger-2 text-sm md:text-base"
           >
             Learn More
           </button>
           
           {/* Photo Carousel */}
-          <div className="mt-16 max-w-4xl mx-auto px-4">
+          <div className="mt-12 md:mt-16 max-w-4xl mx-auto px-4 scroll-animate blur-in">
             <div className="relative overflow-hidden rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10">
               <div className="flex transition-transform duration-500 ease-in-out" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
                 <div className="w-full flex-shrink-0 p-4 md:p-8">
@@ -251,17 +275,17 @@ const Home = () => {
       </section>
 
       {/* About Section */}
-      <section id="about" className="relative z-10 min-h-screen flex items-center justify-center bg-black/50">
-        <div className="max-w-4xl mx-auto px-6 text-center text-white">
-            <h2 className="text-5xl font-bold mb-8 text-[#2ECC71]">About Us</h2>
-            <p className="text-xl leading-relaxed mb-8">
+      <section id="about" className="relative z-10 min-h-screen flex items-center justify-center bg-black/50 py-12 md:py-0">
+        <div className="max-w-4xl mx-auto px-4 md:px-6 text-center text-white">
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 md:mb-8 text-[#2ECC71] scroll-animate slide-left">About Us</h2>
+            <p className="text-base md:text-xl leading-relaxed mb-6 md:mb-8 scroll-animate stagger-1">
             At EmpowerX Digital, we believe the future belongs to those who can navigate and shape the digital landscape.
             Our mission centers on fostering digital empowerment among young people worldwide, particularly those in underserved and marginalized communities. We provide emerging leaders with essential digital skills, cutting-edge tools, dedicated mentorship, and meaningful opportunities—creating pathways for them to unlock their full potential and confidently lead in our increasingly digital world.
             </p>
             
-            <div className="grid md:grid-cols-2 gap-8 mt-12">
-                <div className="bg-white/10 p-6 rounded-lg backdrop-blur-sm flex flex-col items-center group relative overflow-hidden">
-                    <h3 className="text-2xl font-bold mb-4">Vision</h3>
+            <div className="grid md:grid-cols-2 gap-6 md:gap-8 mt-8 md:mt-12">
+                <div className="bg-white/10 p-4 md:p-6 rounded-lg backdrop-blur-sm flex flex-col items-center group relative overflow-hidden scroll-animate slide-left stagger-2">
+                    <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">Vision</h3>
                     <div className="relative h-60 w-full flex items-center justify-center">
                         <img 
                             src={vision} 
@@ -269,14 +293,14 @@ const Home = () => {
                             className="h-60 w-auto transition-all duration-700 group-hover:scale-0 group-hover:rotate-180 group-hover:opacity-0" 
                         />
                         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-300">
-                            <p className="text-center text-sm leading-relaxed px-4">
+                            <p className="text-center text-xs md:text-sm leading-relaxed px-2 md:px-4">
                                 To build a digitally inclusive world where every young person, irrespective of background, geography, or socio-economic status, could access, learn, and lead using technology. We envision a future where digital skills empower youth to create solutions that address real-world challenges and drive positive change in their communities and beyond.
                             </p>
                         </div>
                     </div>
                 </div>
-                <div className="bg-white/10 p-6 rounded-lg backdrop-blur-sm flex flex-col items-center group relative overflow-hidden">
-                    <h3 className="text-2xl font-bold mb-4">Mission</h3>
+                <div className="bg-white/10 p-4 md:p-6 rounded-lg backdrop-blur-sm flex flex-col items-center group relative overflow-hidden scroll-animate slide-right stagger-3">
+                    <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">Mission</h3>
                     <div className="relative h-60 w-full flex items-center justify-center">
                         <img 
                             src={mission} 
@@ -284,25 +308,25 @@ const Home = () => {
                             className="h-60 w-auto transition-all duration-700 group-hover:scale-0 group-hover:rotate-180 group-hover:opacity-0" 
                         />
                         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-300">
-                            <p className="text-center text-sm leading-relaxed px-4">
+                            <p className="text-center text-xs md:text-sm leading-relaxed px-2 md:px-4">
                                 To foster a generation of digitally empowered youth by providing comprehensive education, practical skills development, accessible technology, mentorship, and innovation opportunities. We aim to bridge the digital divide and cultivate a culture of responsible digital citizenship that prepares young people to thrive in an increasingly connected world.
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="grid md:grid-cols-3 gap-8 mt-12">
-                <div className="bg-white/10 p-6 rounded-lg backdrop-blur-sm">
-                <h3 className="text-2xl font-bold mb-4">Innovation</h3>
-                <p>Pushing boundaries and exploring new possibilities in digital technology.</p>
+            <div className="grid md:grid-cols-3 gap-6 md:gap-8 mt-8 md:mt-12">
+                <div className="bg-white/10 p-4 md:p-6 rounded-lg backdrop-blur-sm scroll-animate scale-up stagger-1">
+                <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">Innovation</h3>
+                <p className="text-sm md:text-base">Pushing boundaries and exploring new possibilities in digital technology.</p>
                 </div>
-                <div className="bg-white/10 p-6 rounded-lg backdrop-blur-sm">
-                <h3 className="text-2xl font-bold mb-4">Leadership</h3>
-                <p>Equipping future leaders with the skills to thrive.</p>
+                <div className="bg-white/10 p-4 md:p-6 rounded-lg backdrop-blur-sm scroll-animate scale-up stagger-2">
+                <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">Leadership</h3>
+                <p className="text-sm md:text-base">Equipping future leaders with the skills to thrive.</p>
                 </div>
-                <div className="bg-white/10 p-6 rounded-lg backdrop-blur-sm">
-                <h3 className="text-2xl font-bold mb-4">Community</h3>
-                <p>Building a network of passionate digital professionals and enthusiasts.</p>
+                <div className="bg-white/10 p-4 md:p-6 rounded-lg backdrop-blur-sm scroll-animate scale-up stagger-3">
+                <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">Community</h3>
+                <p className="text-sm md:text-base">Building a network of passionate digital professionals and enthusiasts.</p>
                 </div>
             
             </div>
@@ -310,9 +334,9 @@ const Home = () => {
       </section>
 
       {/* Programs Section */}
-      <section id="programs" className="relative z-10 min-h-screen flex items-center justify-center bg-black/80 py-20">
-        <div className="max-w-4xl mx-auto px-6 text-center text-white">
-          <h2 className="text-5xl font-bold mb-16 text-[#00BFA5]">Our Core Programs</h2>
+      <section id="programs" className="relative z-10 min-h-screen flex items-center justify-center bg-black/80 py-12 md:py-20">
+        <div className="max-w-4xl mx-auto px-4 md:px-6 text-center text-white">
+          <h2 className="text-3xl md:text-5xl font-bold mb-12 md:mb-16 text-[#00BFA5] scroll-animate slide-left">Our Core Programs</h2>
           
           {/* Accordion Container */}
           <div className="space-y-4">
@@ -543,10 +567,10 @@ const Home = () => {
           </div>
 
           {/* Call to Action */}
-          <div className="mt-16 text-center">
-            <h3 className="text-3xl font-bold mb-6">Ready to Start Your Digital Journey?</h3>
-            <p className="text-xl mb-8 text-gray-300">Join EmpowerX Digital and unlock your potential in the digital world</p>
-            <button className="bg-[#00BFA5] hover:bg-amber-600 text-black font-bold py-4 px-8 rounded-full transition duration-300 transform hover:scale-105">
+          <div className="mt-12 md:mt-16 text-center">
+            <h3 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6 scroll-animate scale-up">Ready to Start Your Digital Journey?</h3>
+            <p className="text-lg md:text-xl mb-6 md:mb-8 text-gray-300 scroll-animate stagger-1">Join EmpowerX Digital and unlock your potential in the digital world</p>
+            <button className="bg-[#00BFA5] hover:bg-amber-600 text-black font-bold py-3 md:py-4 px-6 md:px-8 rounded-full transition duration-300 transform hover:scale-105 scroll-animate stagger-2 text-sm md:text-base">
               Apply Now
             </button>
           </div>
@@ -554,57 +578,57 @@ const Home = () => {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="relative z-10 min-h-screen flex items-center justify-center bg-black/80">
-        <div className="max-w-6xl mx-auto px-6 text-center text-white">
-          <h2 className="text-5xl font-bold mb-16 text-[#00BFA5]">Get In Touch</h2>
-          <div className="grid lg:grid-cols-2 gap-16">
+      <section id="contact" className="relative z-10 min-h-screen flex items-center justify-center bg-black/80 py-12 md:py-0">
+        <div className="max-w-6xl mx-auto px-4 md:px-6 text-center text-white">
+          <h2 className="text-3xl md:text-5xl font-bold mb-12 md:mb-16 text-[#00BFA5] scroll-animate slide-left">Get In Touch</h2>
+          <div className="grid lg:grid-cols-2 gap-8 md:gap-16">
             {/* Contact Information */}
-            <div className="text-left">
-              <h3 className="text-3xl font-bold mb-8 text-[#FF7A00]">Connect With Us</h3>
-              <div className="space-y-6">
-                <div className="bg-white/5 p-6 rounded-xl border border-white/10 hover:bg-white/10 transition duration-300">
-                  <h4 className="text-lg font-bold mb-2 text-[#00BFA5]">Email</h4>
-                  <p className="text-gray-300">info@empowerxdigital.com</p>
+            <div className="text-left scroll-animate slide-left">
+              <h3 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8 text-[#FF7A00]">Connect With Us</h3>
+              <div className="space-y-4 md:space-y-6">
+                <div className="bg-white/5 p-4 md:p-6 rounded-xl border border-white/10 hover:bg-white/10 transition duration-300">
+                  <h4 className="text-base md:text-lg font-bold mb-2 text-[#00BFA5]">Email</h4>
+                  <p className="text-sm md:text-base text-gray-300">info@empowerxdigital.com</p>
                 </div>
-                <div className="bg-white/5 p-6 rounded-xl border border-white/10 hover:bg-white/10 transition duration-300">
-                  <h4 className="text-lg font-bold mb-2 text-[#00BFA5]">Phone</h4>
-                  <p className="text-gray-300">+1 (555) 123-4567</p>
+                <div className="bg-white/5 p-4 md:p-6 rounded-xl border border-white/10 hover:bg-white/10 transition duration-300">
+                  <h4 className="text-base md:text-lg font-bold mb-2 text-[#00BFA5]">Phone</h4>
+                  <p className="text-sm md:text-base text-gray-300">+1 (555) 123-4567</p>
                 </div>
-                <div className="bg-white/5 p-6 rounded-xl border border-white/10 hover:bg-white/10 transition duration-300">
-                  <h4 className="text-lg font-bold mb-2 text-[#00BFA5]">Location</h4>
-                  <p className="text-gray-300">Calgary, Alberta, Canada</p>
+                <div className="bg-white/5 p-4 md:p-6 rounded-xl border border-white/10 hover:bg-white/10 transition duration-300">
+                  <h4 className="text-base md:text-lg font-bold mb-2 text-[#00BFA5]">Location</h4>
+                  <p className="text-sm md:text-base text-gray-300">Calgary, Alberta, Canada</p>
                 </div>
               </div>
             </div>
 
             {/* Contact Form */}
-            <div className="text-left">
-              <h3 className="text-3xl font-bold mb-8 text-[#FF7A00]">Send us a Message</h3>
-              <form className="space-y-6">
+            <div className="text-left scroll-animate slide-right">
+              <h3 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8 text-[#FF7A00]">Send us a Message</h3>
+              <form className="space-y-4 md:space-y-6">
                 <div>
                   <input 
                     type="text" 
                     placeholder="Your Name" 
-                    className="w-full p-4 rounded-xl bg-white/5 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-[#00BFA5] focus:bg-white/10 transition duration-300"
+                    className="w-full p-3 md:p-4 rounded-xl bg-white/5 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-[#00BFA5] focus:bg-white/10 transition duration-300 text-sm md:text-base"
                   />
                 </div>
                 <div>
                   <input 
                     type="email" 
                     placeholder="Your Email" 
-                    className="w-full p-4 rounded-xl bg-white/5 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-[#00BFA5] focus:bg-white/10 transition duration-300"
+                    className="w-full p-3 md:p-4 rounded-xl bg-white/5 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-[#00BFA5] focus:bg-white/10 transition duration-300 text-sm md:text-base"
                   />
                 </div>
                 <div>
                   <textarea 
                     placeholder="Your Message" 
-                    rows="5"
-                    className="w-full p-4 rounded-xl bg-white/5 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-[#00BFA5] focus:bg-white/10 transition duration-300 resize-none"
+                    rows="4"
+                    className="w-full p-3 md:p-4 rounded-xl bg-white/5 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-[#00BFA5] focus:bg-white/10 transition duration-300 resize-none text-sm md:text-base"
                   ></textarea>
                 </div>
                 <button 
                   type="submit"
-                  className="w-full bg-gradient-to-r from-[#00BFA5] to-[#0056D2] hover:from-[#0056D2] hover:to-[#00BFA5] text-white font-bold py-4 px-8 rounded-xl transition duration-300 transform hover:scale-105 shadow-lg"
+                  className="w-full bg-gradient-to-r from-[#00BFA5] to-[#0056D2] hover:from-[#0056D2] hover:to-[#00BFA5] text-white font-bold py-3 md:py-4 px-6 md:px-8 rounded-xl transition duration-300 transform hover:scale-105 shadow-lg text-sm md:text-base"
                 >
                   Send Message
                 </button>
